@@ -1,0 +1,2 @@
+class BoardRecipesController < ApplicationController
+end
