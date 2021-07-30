@@ -1,4 +1,10 @@
 class UsersController < ApplicationController
+before_action :authorized, only: [:me]
+
+    def me
+        token = encode_token({user_id: @user.id})
+        render json: {user: UserSerializer.new(@user), token: token}
+    end
 
     def create 
         user = User.create(user_params)
@@ -17,6 +23,10 @@ class UsersController < ApplicationController
         else
             render json: {error: "username or password is incorrect"}
         end
+    end
+
+    def index
+        render json: User.all
     end
 
     private
