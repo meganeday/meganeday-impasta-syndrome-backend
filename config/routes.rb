@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post "/users", to: "users#create"
   get "/users", to: "users#index"
   post "/recipes", to: "recipes#create"
+  delete "/recipes/:id", to: "recipes#destroy"
   post "/login", to: "users#login"
   get "/me", to: "users#me"
 

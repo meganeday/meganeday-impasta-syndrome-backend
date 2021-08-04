@@ -9,7 +9,8 @@ before_action :authorized, only: [:me]
     def create 
         user = User.create(user_params)
         if user.valid?
-            render json:user
+            token = encode_token({user_id: user.id})
+            render json: {user: UserSerializer.new(user), token: token}
         else
             render json: {errors: user.errors.full_messages}
         end
@@ -23,10 +24,6 @@ before_action :authorized, only: [:me]
         else
             render json: {error: "username or password is incorrect"}
         end
-    end
-
-    def index
-        render json: User.all
     end
 
     private

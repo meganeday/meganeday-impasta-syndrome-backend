@@ -1,8 +1,14 @@
 class RecipesController < ApplicationController
-before_action :authorized, only: [:create]
+before_action :authorized, only: [:create, :destroy]
 
     def create
         recipe = @user.recipes.create!(recipe_params)
+        render json: recipe
+    end
+
+    def destroy
+        recipe = @user.recipes.find(params[:id])
+        recipe.destroy
         render json: recipe
     end
 
